@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+  --border: #e5e7eb;
+  --muted: #f9fafb;
+  --muted-foreground: #6b7280;
+  --primary: #152E26;
+  --primary-foreground: #ffffff;
+  --accent: #E8F5E9;
+  --success: #10b981;
+  --destructive: #ef4444;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* =========================================
+   PHONE SHELL & SCROLLBAR HIDING
+   ========================================= */
+.phone-shell {
+  @apply relative mx-auto flex h-[100dvh] w-full max-w-[400px] flex-col overflow-hidden bg-gray-200 sm:h-[850px] sm:max-h-[90vh] sm:rounded-[3rem] sm:border-[10px] sm:border-gray-900 sm:shadow-2xl;
+}
+.phone-screen {
+  @apply relative flex h-full w-full flex-col overflow-hidden bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300;
+}
+.phone-island {
+  @apply absolute top-2 left-1/2 z-50 h-6 w-28 -translate-x-1/2 rounded-full bg-black;
+}
+
+/* Hide scrollbar globally inside the phone screen */
+.phone-screen ::-webkit-scrollbar {
+  display: none;
+}
+.phone-screen * {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* =========================================
+   BRUTE FORCE HIGH CONTRAST OVERRIDES
+   ========================================= */
+[data-theme="high-contrast"] {
+  --background: #000000;
+  --foreground: #FFD700;
+  --border: #FFD700;
+  --muted: #111111;
+  --muted-foreground: #FFD700;
+  --primary: #FFD700;
+  --primary-foreground: #000000;
+  --accent: #111111;
+}
+
+/* Force ALL text to be yellow */
+[data-theme="high-contrast"] .text-gray-900,
+[data-theme="high-contrast"] .text-gray-800,
+[data-theme="high-contrast"] .text-gray-700,
+[data-theme="high-contrast"] .text-gray-600,
+[data-theme="high-contrast"] .text-gray-500,
+[data-theme="high-contrast"] .text-gray-400,
+[data-theme="high-contrast"] .text-black,
+[data-theme="high-contrast"] .text-foreground,
+[data-theme="high-contrast"] .text-muted-foreground,
+[data-theme="high-contrast"] .text-primary,
+[data-theme="high-contrast"] h1,
+[data-theme="high-contrast"] h2,
+[data-theme="high-contrast"] h3,
+[data-theme="high-contrast"] p,
+[data-theme="high-contrast"] span:not(.bg-primary span), /* Crucial fix here */
+[data-theme="high-contrast"] svg:not(.bg-primary svg) {
+  color: #FFD700 !important;
+}
+
+/* Force ALL backgrounds to be black */
+[data-theme="high-contrast"] .bg-white,
+[data-theme="high-contrast"] .bg-background,
+[data-theme="high-contrast"] .bg-gray-50,
+[data-theme="high-contrast"] .bg-gray-100,
+[data-theme="high-contrast"] .bg-muted,
+[data-theme="high-contrast"] .bg-accent {
+  background-color: #000000 !important;
+}
+
+/* Force ALL borders to be yellow */
+[data-theme="high-contrast"] .border-border,
+[data-theme="high-contrast"] .border-gray-100,
+[data-theme="high-contrast"] .border-gray-200,
+[data-theme="high-contrast"] .border-gray-300 {
+  border-color: #FFD700 !important;
+}
+
+/* =========================================
+   FIX THE YELLOW BALANCE CARD 
+   ========================================= */
+[data-theme="high-contrast"] .bg-primary {
+  background-color: #FFD700 !important;
+}
+
+/* Force EVERYTHING inside the yellow card to be black */
+[data-theme="high-contrast"] .bg-primary *,
+[data-theme="high-contrast"] .bg-primary svg,
+[data-theme="high-contrast"] .bg-primary span,
+[data-theme="high-contrast"] .bg-primary p {
+  color: #000000 !important;
+}
+
+/* Keep success and error modals distinct */
+[data-theme="high-contrast"] .bg-success {
+  background-color: #10b981 !important;
+  color: #000000 !important;
+}
+[data-theme="high-contrast"] .bg-destructive {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+/* Animations */
+@keyframes wave { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1.2); } }
+.af-wave { @apply w-1.5 rounded-full bg-current; animation: wave 1s ease-in-out infinite; }
+@keyframes pulse-border { 0%, 100% { border-color: var(--destructive); } 50% { border-color: transparent; } }
+.af-flash { @apply border-2 text-[var(--destructive)]; border-color: var(--destructive); animation: pulse-border 1s ease-in-out infinite; }
+@keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+.af-confetti { @apply absolute top-0 h-2.5 w-1.5 rounded-sm; animation: fall 2.5s linear infinite; }
+@keyframes pulse-opacity { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.af-pulse { animation: pulse-opacity 1.5s ease-in-out infinite; }
+@keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.af-sheet { animation: slide-up 0.3s ease-out forwards; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.af-fade { animation: fade-in 0.2s ease-out forwards; }
+.af-screen-enter { animation: fade-in 0.3s ease-out forwards; }
