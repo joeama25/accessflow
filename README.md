@@ -1,16 +1,8 @@
-# React + Vite
+# AccessFlow AI - Accessibility Banking
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## AI Usage Explanation
+This project uses Artificial Intelligence to create an inclusive banking experience:
+- **Voice Banking (Web Speech API)**: A custom AI state machine listens for commands, guiding users through a multi-step transfer flow (Account Number -> Amount -> Confirmation).
+- **TTS (Text-to-Speech)**: Integrated with the browser's native `speechSynthesis` and the **YarnGPT API** for reading out account balances and transfer details.
+- **Idle Assistant**: A 10-second inactivity timer that triggers an AI voice prompt to guide the user.
+- **Fallback Logic**: If the AI backend is offline or fails, the app automatically falls back to native browser speech synthesis so the visually impaired user is never left in silence.
